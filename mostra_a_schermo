@@ -2,6 +2,7 @@
 def issueData = [:]
 
 pipeline{
+  agent any
   parameters{
         string(
           name: 'nome',
