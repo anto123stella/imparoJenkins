@@ -32,15 +32,15 @@ pipeline{
     stage("Data Preparation"){
       steps{
         script{
-          issueData.nome.toLowerCase()
-          issueData.cognome.toLowerCase()
+          def a = issueData.nome.toLowerCase()
+          def b = issueData.cognome.toLowerCase()
         }
       }
     }
     stage("Execution"){
         steps{
           script{
-            def upn = ""+issueData.nome+"."+issueData.cognome+"@miao.it"
+            def upn = ""+a+"."+b+"@miao.it"
             def newFile = new File("C:/Users/antonio.agostino/OneDrive - Accenture/Documents/test/test.txt")
             newFile.createNewFile() 
             newFile.append(""+upn)
