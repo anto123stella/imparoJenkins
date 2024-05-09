@@ -4,7 +4,7 @@ def issueData = [:]
 pipeline{
   parameters{
         string(
-          name: 'nome',
+          nome: 'nome',
           defaultValue: '',
           trim: true
        )
