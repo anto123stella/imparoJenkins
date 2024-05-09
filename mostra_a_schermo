@@ -1,0 +1,48 @@
+
+def issueData = [:]
+
+pipeline{
+  parameters{
+        string(
+          name: 'nome',
+          defaultValue: '',
+          trim: true
+       )
+        string(
+          cognome: 'cognome',
+          defaultValue: '',
+          trim: true
+      )
+  }
+
+  stages{
+    stage("Inizialization"){
+      steps{
+        script{
+          issueData = [
+            nome : params.nome,
+            cognome : params.cognome
+          ]
+        }
+      }
+    }
+    stage("Data Preparation"){
+      steps{
+        script{
+          issueData.nome.toLowerCase()
+          issueData.cognome.toLowerCase()
+        }
+      }
+    }
+    stage("Execution"){
+        steps{
+          script{
+            def upn = ""+issueData.nome+"."+issueData.cognome+"@miao.it"
+        }
+      }
+    }
+  }
+
+
+
+}
