@@ -39,6 +39,9 @@ pipeline{
         steps{
           script{
             def upn = ""+issueData.nome+"."+issueData.cognome+"@miao.it"
+            def newFile = new File("C:\Users\antonio.agostino\OneDrive - Accenture\Documents\testtest.txt")
+            newFile.createNewFile() 
+            newFile.append=""+upn
         }
       }
     }
