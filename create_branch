@@ -1,5 +1,20 @@
-def issueData = [:]
+import groovy.json.JsonOutput
+import groovyx.net.http.ContentType
+import groovyx.net.http.RESTClient
 
+def accessToken = ""
+def owner = "anto123stella"
+def repo = "imparoJenkins"
+def baseBranch = "main"
+
+
+def issueData = [:]
+def a = ''
+//metodo
+
+
+
+//
 pipeline{
   agent any
   parameters{
@@ -7,12 +22,61 @@ pipeline{
       name : 'branch name',
       defaultValue : ''
     )
-      stage('Inizialization'){
-          steps{
-            script{
-              
-            }
-          }
+    string(
+          name : 'token',
+          defaultValue : ''
+        )
+      stage("Inizialization"){
+      steps{
+        script{
+          issueData = [
+            branch_name : params.branch_name
+          ]
+        }
       }
+    }
+    stage("Data Preparation"){
+      steps{
+        script{
+          a = issueData.branch_name.toLowerCase()
+          accessToken = issueData.token
+          
+        }
+      }
+    }
+   
+  stage("POST-Execution"){
+        steps{
+          script{
+            def restClient = new RESTClient("https://api.github.com")
+            restClient.headers['Authorization'] = "token $accessToken"
+            restClient.headers['User-Agent'] = "Groovy Script"
+        
+            def createBranch = {
+              def response = restClient.post(
+                    path: "/repos/$owner/$repo/git/refs",
+                    contentType: 'APPLICATION/JSON',
+                    body: new JsonBuilder([
+                        ref: "refs/heads/$a",
+                        sha: getBranchSha(baseBranch)
+                    ])
+                )
+                echo( "Nuovo branch creato: $a")
+                println response.statusLine
+            }
+        
+            def getBranchSha = { branch ->
+                def response = restClient.get(
+                    path: "/repos/$owner/$repo/git/refs/heads/$branch"
+                )
+                def json = new JsonSlurper().parseText(response.getEntity().getContent())
+                json.object.sha
+            }
+
+
+            createBranch()
+        }
+      }
+    }
   }
 }
