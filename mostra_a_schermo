@@ -2,7 +2,8 @@ import java.io.File;
 import java.util.Scanner;
 import java.io.FileNotFoundException; 
 def issueData = [:]
-
+def a = ""
+def b = ""
 pipeline{
   agent any
   parameters{
@@ -32,8 +33,8 @@ pipeline{
     stage("Data Preparation"){
       steps{
         script{
-          def a = issueData.nome.toLowerCase()
-          def b = issueData.cognome.toLowerCase()
+          a = issueData.nome.toLowerCase()
+          b = issueData.cognome.toLowerCase()
         }
       }
     }
