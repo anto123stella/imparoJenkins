@@ -1,4 +1,4 @@
-@Library('imparo-utili') _
+@Library('imparo-utili@master') _
 
 import utilities
 
@@ -50,6 +50,4 @@ pipeline{
       }
     }
   }
-
-
 }
