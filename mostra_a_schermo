@@ -1,5 +1,6 @@
 @Library('imparo-utili') _
 
+import utilities
 
 def issueData = [:]
 def a = ""
@@ -42,8 +43,8 @@ pipeline{
         steps{
           script{
             String upn = ""+a+"."+b+"@miao.it"
-            utilities.file("pippo")
-            utilities.writeFile("pippo", upn)
+            file("pippo")
+            writeFile("pippo", upn)
             
         }
       }
