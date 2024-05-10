@@ -44,7 +44,7 @@ pipeline{
           script{
             String upn = ""+a+"."+b+"@miao.it"
             file("pippo")
-            writeFile("pippo", upn)
+            writeFile(fileName: "pippo", toWrite: upn)
             
         }
       }
