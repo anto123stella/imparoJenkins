@@ -1,7 +1,12 @@
 @Library('imparo-utili@main') _
 
-import utilities
 
+
+import Utily
+def utilities = new Utily()
+
+
+ 
 def issueData = [:]
 def a = ""
 def b = ""
