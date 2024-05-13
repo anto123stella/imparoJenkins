@@ -44,6 +44,7 @@ pipeline{
           script{
             String upn = ""+a+"."+b+"@miao.it"
             txtfile(upn)
+            echo(''+upn)
         }
       }
     }
